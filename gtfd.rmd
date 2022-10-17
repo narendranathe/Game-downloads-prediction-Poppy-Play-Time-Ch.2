@@ -1,0 +1,159 @@
+---
+title: "Game Download Prediction"
+author: "Narendra Chigali"
+date: '2022-05-11'
+output: 
+  html_document:
+    df_print: paged
+---
+```{r}
+library(tidyverse)
+library(corrplot)
+library(MLmetrics)
+library(e1071)
+library(caret)
+library(Hmisc)
+
+```
+```{r}
+# reading data frame
+gamep = read.csv("train.csv", stringsAsFactors = T)
+
+
+gamep
+
+
+
+
+
+str(gamep)
+
+
+
+
+
+
+
+```
+
+```{r}
+str(gamep)
+
+```
+
+```{r}
+# Formating data to dates
+gamep$Greleasedate<-as.Date(gamep$Greleasedate, format="%m/%d/%Y")
+
+gamep$Ptdate <-as.Date(gamep$Ptdate, format="%m/%d/%Y")
+```
+
+```{r}
+str(gamep)
+
+```
+
+```{r}
+# eleimating variables from the above observations
+df <- subset(gamep,select = -c(Greleasedate,Ptdate,Gsourcelink,Gamers,platformwindows,categorymultiplayer,genreishorror, Gtime_min,Gtwitter,Glink,Greviews,GPrice))
+str(df)
+```
+
+```{r}
+# data Partitioning into test and train
+set.seed(123)
+train_m <- createDataPartition(df$Gposreviews, p = .80, list = FALSE)
+train_df <- df[train_m,]
+test_df  <- df[-train_m,]
+```
+
+
+```{r}
+# Plotting Correlation
+library(psych)
+corPlot(train_df[,unlist(lapply(df, is.numeric))], method="number",number.cex = 0.1,tl.cex=0.1,addCoef.col = 1)
+
+```
+
+
+
+
+
+
+```{r}
+hist.data.frame(train_df, bins=10)
+
+```
+
+
+
+```{r}
+# Linear Regression model
+
+linear_regression <- lm(Gposreviews~ ., data = train_df)
+summary(linear_regression)
+```
+```{r}
+# Model Tesing
+Predict_test <- predict(linear_regression,newdata = test_df)
+```
+
+```{r}
+# MAPE 
+lm_Mape <- MAPE(Predict_test,test_df$Gposreviews)
+lm_Mape
+```
+```{r}
+# computing number of downloads
+mean_of_dowloads <-mean(Predict_test)*5
+mean_of_dowloads
+```
+
+
+
+
+```{r}
+# Preprocessing for SVM 
+library(caret)
+preprocessParams <- preProcess(train_df, method = c("scale","center"))
+
+print(preprocessParams)
+```
+
+```{r}
+# Preprocessing for test data 
+preprocessParams_test <- preProcess(test_df, method = c("scale","center"))
+
+print(preprocessParams_test)
+```
+
+```{r}
+test_scaled <- predict(preprocessParams_test, test_df)
+```
+
+
+```{r}
+#SVM model 
+svm_corolla <- svm(Gposreviews~., data = train_df, 
+                   kernel = 'linear', cost = 100, scale = TRUE)
+
+summary(svm_corolla)
+```
+
+```{r}
+# predicting test data using SVM
+svm_yhat_scaled <- predict(svm_corolla, newdata = test_scaled)
+
+svm_yhat <- svm_yhat_scaled*sd(train_df$Gposreviews) + mean(train_df$Gposreviews)
+```
+
+```{r}
+postResample(svm_yhat, test_df$Gposreviews)
+```
+```{r}
+# Computing MAPE
+svm_MAPE <- MAPE(svm_yhat_scaled,test_df$Gposreviews)
+svm_MAPE
+```
+
+

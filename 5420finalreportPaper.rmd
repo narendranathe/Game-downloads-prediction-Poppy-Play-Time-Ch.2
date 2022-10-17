@@ -1,0 +1,90 @@
+---
+title: "FINAL PROJECT REPORT IST 5420"
+author: "Narendra Chigili, Shresta Reddy Maddu, Abhinav Pallepati, Priyaa Pottipalli"
+date: '2022-05-12'
+output:
+  html_document: default
+  pdf_document: default
+  word_document: default
+---
+
+## ABSTRACT 
+
+We investigate the topic of Poppy's Play Time 2 Revenue forecast. The data is processed and visually depicted using the data gathered.
+
+## INTRODUCTION
+
+PC games are gradually becoming household items in the world's most developed nations, and they are capturing a larger share of discretionary spending. It's gradually spreading to every part of the globe.  It has attracted one-third of the world’s population i.e., about 1.3 billion who prefer playing on their personal computers. The PC category, which is primarily ascribed to non-casual gamers, will expand at a 6% annual rate to $37 billion by 2020. One such PC game that we are analyzing in this paper, is Poppy’s Playtime. 
+The purpose of this thesis is to investigate the factors that influence video game success, establish a database of the game Poppy’s Playtime, and, lastly, estimate the success of Chapter 2 of this game based on descriptive information such as genre, price, and creator, or game features.
+
+# Factors Urging any Game’s Success: 
+
+The game developers and publishers are still on a verge of finding out the key factor to a game’s success. While previously positive reviews could be one of the reasons for determining its victory, nowadays the reviews and real-time YouTube or Twitch streamers are on-trend. The people who are looking forward to purchasing any game, first watch the videos of these streamers and think twice before investing. Eventually, it has come to a point that many brands have also started sponsoring competitions between popular streamers which in turn helps promote their brands.
+
+# About the game: Poppy’s Playtime 
+
+It is a Horror based game that involves surviving through resentful toys that wait for the user in the unrestricted toy factory.  It was created and released by MOB Games in the United States. Chapter 1 of this game was released on Steam on October 12th, 2021. Steam is a very popular gaming platform, which allows its users to play, discuss and create games. 
+
+
+## 3. LITERATURE REVIEW
+
+# 3.1. Online Games
+Individuals from all around the world frequently participate in online games. Through internet connections, the individuals share info. Role-playing and action games are two types of online games. Role-playing games are more graphic in nature, whereas action games include the notion of applying strategy.
+
+# 3.2 Virtual Goods
+Virtual goods are a significant source of revenue for the online gaming business. Vanity goods, functional goods, and social goods are the three types of virtual commodities. 
+
+# 3.3 Theory of Consumption Values
+The following categories are used to categorize consumption values:
+  1. Functional Values,
+  2. Emotional Values,
+  3. Social Values,
+  4. Epistemic Values,
+  5. Conditional Values
+Customer purchase behavior and choice have been researched earlier.
+
+
+## 4. Research Method
+
+# 4.1 Data Acquisition
+STEAM, Youtube, and Twitch data were gathered. We gathered statistics from the Steam website based on 9 distinct genres: action, adventure horror, sports, stimulation, RPG, Arcade, Sandbox, and puzzles.
+Data was also gathered from major YouTube channels for the game, including reviews, likes, and other metrics.
+
+Because the number of copies of the game sold is not publicly available on the Steam website, the number of downloads and sales was estimated. 
+
+# 4.2 Data Preparation
+The parameters were configured to apply to each and every chunk in the file. For data visualization and purification, the following linear models were used: Support Vector Machines (SVM), Linear Model (LM), and Random Forrest (RF).
+
+The following libraries were used: Tidyverse, corrplot, Hmisc, MLmetrics, ggplot.
+The data's underlying structure was then shown using str (data). We used factor levels to alter categorical variables.
+We discovered that the data set had no missing data values.
+
+# 4.3 Data Visualization
+We used the method ggplot() to build a scatter plot with a regression line to display the data collected after cleaning. The graph shows that their values appear to have a positive association.
+
+## 5. Experiments
+
+# 5.1 Correlation Plot
+To extract and convert the items, a correlation plot was generated. The correlation was calculated using the method "corr()." Galikes and Gacomments are substantially connected, according to the findings.
+
+# 5.2 Histogram 
+We have vectors of values for which the histogram is plotted using numerical and integer data when we use histogram. It is used to create training and testing data sets from 57 observations.
+
+
+# 5.3 Linear Model
+We used Gameposreviews as train data and received Residual Standard Error of 1.03e-11 on 30 degrees of freedom, Multiple R-Squared is 1 and Adjusted R-squred is 1. 
+Later we predicted Test and Train Data.
+
+
+We implemented Regression tree and the deviance shown by this model is at minimum at Tree size 2 and predicted tree test data.
+
+Followed by creating a prepocessing entity data for both training and test data. It was created from 48 samples which resulted in Centred as 7, Scaled as 7.These varibales are eliminated  (Greleasedate,Ptdate,Gsourcelink,Gamers,platformwindows,categorymultiplayer,genreishorror, Gtime_min,Gtwitter,Glink,Greviews,GPrice) because of zero variance and categorical variables with more classes.
+
+# 5.4 Support Vector Machine(SVM)
+Created correlation Gposreviews with test data, it resulted in RMSE as 146343046 and R squared NA, MAE is 146177744. for test data we have mean absolute percentage error is 0.059.
+
+## 6. Conclusion
+We have computed number of downloads from the predicted reviews on the test data, which is 77290. 
+Comparing linear regression, MAPE and SVMs MAPE we can say that linear regression has a better performance though these models are over fitted as there are lesser observations having more observations would make these values more significant by having a trade off between variance and bias 
+
+
