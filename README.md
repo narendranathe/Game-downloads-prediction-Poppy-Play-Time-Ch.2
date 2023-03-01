@@ -230,6 +230,7 @@ comparatively, the gradient boosting machine has somewhat performed better than 
 
 
 **Bibliography**
+
 1. Alpert, Frank (2007), “The Entertainment Software Industry: Suddenly Huge, Little
 Understood,” Asia-Pacific Journal of Marketing and Logistics, Vol. 19, No. 1, 87-100.
 Retrieved from https://core.ac.uk/download/pdf/15035023.pdf.
