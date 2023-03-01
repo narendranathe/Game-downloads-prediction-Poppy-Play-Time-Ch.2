@@ -1,0 +1,318 @@
+---
+title: "Download Prediction model"
+author: "Narendranath Edara"
+date: "5/11/2022"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# load libraries
+```{r}
+# Importing all libraries
+library(caret)
+library(ggplot2)
+library(tidyr)
+library(dplyr)
+library(MLmetrics)
+library(tinytex)
+```
+
+
+# load data
+```{r}
+df <- read.csv("Data set.csv")
+str(df)
+head(df)
+```
+
+# Data cleansing and variable selection
+```{r}
+# variable selection
+
+data <- df %>%
+  select(gprice, diff_days, all_rev,	rec_rev,	pos_rev,	neg_rev, ytc_subs, ytc_view, ytc_likes,	ytc_com,	twt_view,	twt_flw, twi_flw, platform_mac, platform_win,	platform_win.mac)
+
+data <- data.frame(data)
+
+
+# converting all character values to numeric
+
+#numeric <- c("gprice", "diff_days", "all_rev",	"rec_rev",	"pos_rev",	"neg_rev", "ytc_subs", "ytc_view", "ytc_likes",	"ytc_com",	"twt_view",	"twt_flw", "twi_flw")
+
+
+#data[numeric] <- lapply(data[numeric], as.numeric)
+
+```
+
+```{r}
+str(data)
+```
+
+# Data Manipulation
+```{r}
+data$platform_mac <- as.factor(data$platform_mac)
+data$platform_mac <- unclass(data$platform_mac)
+data$platform_mac <- as.numeric(as.character(data$platform_mac))
+
+data$platform_win.mac <- as.factor(data$platform_win.mac)
+data$platform_win.mac <- unclass(data$platform_win.mac)
+data$platform_win.mac <- as.numeric(as.character(data$platform_win.mac))
+
+data$platform_win <- as.numeric(as.character(data$platform_win))
+data$gprice <- as.numeric(as.character(data$gprice))
+data$neg_rev <- as.numeric(as.character(data$neg_rev))
+data$ytc_view <- as.numeric(as.character(data$ytc_view))
+
+str(data)
+```
+
+**Data manipulation for categorical variables set with factor levels**
+
+```{r}
+data$platform_mac
+data$platform_win.mac
+data$platform_win
+```
+
+
+# Dealing with missing values "N/A"
+```{r}
+data[is.na(data)] <- min(data, na.rm = TRUE)
+sum(is.na(data))
+summary(data)
+```
+
+**The summary statistics now show that there are no missing values in the data set**
+
+# Creating the response variable 
+
+**The response variable is "downloads" which is a product of diff days (difference between game release date and April 30, 2022) and all_reviews**
+```{r}
+data <- data %>%
+  mutate(downloads = diff_days * all_rev)
+data$downloads
+```
+
+
+# Data Visulalization
+
+# Scatter plot with regression line
+
+```{r}
+ggplot(data, aes(twt_flw, twi_flw)) + geom_point(aes(color = diff_days, alpha = 0.8)) + geom_smooth(method = "lm", color = "red") + labs(x = "Twitter followers", y = "Twitch Followers") + scale_x_log10() + scale_y_log10()
+```
+**From the above scatter plot of Twitter vs Twitch followers by the number of days since the game released seems to have a positive correlation between their values**
+
+# Correlation plot
+```{r}
+# correlation plot
+library(corrplot)
+data_plot <- data %>%
+  select(downloads, gprice, diff_days, all_rev,	rec_rev, ytc_subs, ytc_view, ytc_likes,	ytc_com,	twt_view,	twt_flw, twi_flw)
+data_plot <- data.frame(data_plot)
+M <- cor(data_plot)
+corrplot(M, method="number")
+corrplot(M, method= "circle")
+
+```
+**The correlation plot show that variables all_rev, rec_rev to downloads, and twt_view to diff_days are highly correlated. Other variables like ytc_view to ytc_likes, ytc_likes to ytc_com, twt_view to diff_days, and twi_flw to ytc_view have a strong correlation**
+
+
+# Grouped Boxplot
+```{r}
+# Box plots of Youtube channel, subs, likes, and comments
+library(reshape)
+bplot <- melt(data = data, measure.vars = c(7,8,9,10), variable_name = "variable")
+
+ggplot(bplot, aes(x = variable, y = value, fill = "ytc_name")) +
+  geom_boxplot() + facet_wrap(~ variable, scales = "free", ncol = 4) + labs(title = "Boxplots of Youtube Channel activity") + labs(x = "Youtube Channel Variables", y = "Values")
+```
+**The boxplots ytc_view, ytc_likes, ytc_com have more outliers as compared to ytc_subs which has just 1 outlier. Data in ytc_subs and ytc_likes look kind of having a similar range of values and mediean and ytc_view and ytc_com look the same with minor difference in ytc_view**
+
+
+# Data Partitioning
+```{r}
+# Data partition: randomly split the data set into a train (80%) and a test set (20%)
+index <- 1:nrow(data)
+set.seed(123)
+train_index <- sample(index, round(length(index)*0.8))
+train_set <- data[train_index,]
+test_set <- data[-train_index,]
+```
+
+```{r}
+nrow(train_set)
+nrow(test_set)
+```
+
+**The above table result displays that out of 80 observations the train-test-split of 80-20 assigned 64 observations for training set and 16 observations for test set**
+
+# Multiple linear regression Model 1
+```{r}
+# Multiple linear regression with selected predictors
+model1 <- lm(downloads ~ gprice + diff_days + all_rev +	rec_rev + ytc_subs + ytc_view + ytc_likes +	ytc_com +	twt_view +	twt_flw + twi_flw, data = train_set)
+summary(model1)
+```
+
+**From the result of multiple linear regression model 1, the predictors all reviews, recent reviews, youtube channel subscribers, and twitch followers are statistically significant**
+
+```{r}
+# MLR Model 1 prediction
+y_hat <- predict(model1, test_set, type = "response")
+mlr1_result <- postResample(y_hat, test_set$downloads)
+plot(test_set$downloads ~ y_hat)
+mlr1_result
+```
+
+
+# Multiple Linear Resgression model 2
+```{r}
+# Multiple linear regression with selected predictors
+model2 <- lm(downloads ~ ytc_com + twt_view + twi_flw + rec_rev, data = train_set)
+summary(model2)
+```
+
+**From the result of multiple linear regression model 2, the predictors youtube comments, twitch followers, and recent reviews are statistically significant**
+
+```{r}
+# MLR Model 2 prediction
+y_hat2 <- predict(model2, test_set, type = "response")
+mlr2_result <- postResample(y_hat2, test_set$downloads)
+plot(test_set$downloads ~ y_hat2)
+
+mlr2_result
+```
+
+# Multiple Linear Resgression model 3
+```{r}
+# Multiple linear regression with all predictors
+model3 <- lm(downloads ~., data = train_set)
+summary(model3)
+```
+**From the result of multiple linear regression 3 with all predictors, the predictors difference date (date between release date and April 30, 2022), and twitch followers are statistically significant**
+
+```{r}
+# MLR Model 3 prediction
+y_hat3 <- predict(model3, test_set, type = "response")
+mlr3_result <- postResample(y_hat3, test_set$downloads)
+plot(test_set$downloads ~ y_hat3)
+
+mlr3_result
+```
+
+# Model 2: Logistic Regression
+
+```{r}
+# Logistic regression (out of sample prediction)
+logit1 <- glm(as.factor(downloads) ~ gprice + diff_days + all_rev +	rec_rev + ytc_subs +	ytc_com +	twt_view + twi_flw, family="binomial", data = train_set)
+
+summary(logit1)
+```
+
+
+```{r}
+# Calculate predicted probability
+logit1.prob <- predict(logit1, type = "response")
+
+plot(x = train_set$downloads, y = ifelse(train_set$downloads == "Yes", 1, 0), 
+     col = "orange", xlab = "Downloads", ylab = "Probablity of downloads")
+
+points(x = train_set$downloads[order(train_set$downloads)], 
+       y = logit1.prob[order(train_set$downloads)], 
+       type = "l", col="blue", lwd = 2)
+
+```
+
+
+```{r}
+# Calculate probability of downloads
+test_probs <- predict(logit1, newdata = test_set, type="response")
+
+# Show the first 10 values
+test_probs[1:10]
+```
+
+
+```{r}
+# Logit model prediction
+# Calculate predicted downloads
+test_pred <- ifelse(test_probs >.5, "1", "0")
+
+# Show Result
+logit_result <- postResample(test_probs, test_set$downloads)
+plot(test_set$downloads ~ test_probs)
+
+logit_result
+```
+
+
+# Model 3: Gradiant Boosting Machine
+
+```{r}
+set.seed(123)
+library(gbm)
+
+gbm_model <- gbm(train_set$downloads ~ gprice + diff_days + all_rev +  ytc_subs + ytc_view + ytc_likes +	ytc_com +	twt_view +	twt_flw + twi_flw, data = train_set,
+                 distribution = "gaussian",
+                 cv.folds = 20,
+                 shrinkage =.01,
+                 n.minobsinnode = 10,
+                 n.trees = 1000)
+
+print(gbm_model)
+```
+
+
+```{r}
+summary(gbm_model)
+```
+
+
+```{r}
+# GBM model prediction
+test1 <- test_set[,-16]
+test2 <- test_set[,16]
+gbm_pred <- predict.gbm(gbm_model, test_set)
+
+
+gbm_result <- postResample(gbm_pred, test_set$downloads)
+plot(test_set$downloads ~ gbm_pred)
+
+gbm_result
+
+```
+
+# Model Comparison
+
+```{r}
+modelcomp_df = data.frame(Model =
+                        c('Multiple Linear regression1','Multiple Linear regression2',
+                          'Multiple Linear regression3',
+                          'Logistic regression', 'Gradiant Boosting Machine'),
+                          RMSE = c(mlr1_result[["RMSE"]],
+                                   mlr2_result[["RMSE"]],
+                                   mlr3_result[["RMSE"]],
+                                   logit_result[["RMSE"]],
+                                   gbm_result[["RMSE"]]),
+                          R2 = c(mlr1_result[["Rsquared"]],
+                                   mlr2_result[["Rsquared"]],
+                                   mlr3_result[["Rsquared"]],
+                                   logit_result[["Rsquared"]],
+                                   gbm_result[["Rsquared"]]),
+                          MAE = c(mlr1_result[["MAE"]],
+                                   mlr2_result[["MAE"]],
+                                   mlr3_result[["MAE"]],
+                                   logit_result[["MAE"]],
+                                   gbm_result[["MAE"]]))
+print(modelcomp_df)
+```
+
+**Conclusion: After running all models on the data set to predict the number of downloads, the resultant performance figures does not favor the models, as their RMSE and MAE values seems to not convince that their performance was optimal. Although comparatively GBM alone did a good job with its highest R2 value among all the models, but with the results of the model, we will not choose to go with any of the above supervised learning models to predict PC game downloads w.r.t data collected from steam, twitter, youtube, and twitch**
+
+
+
