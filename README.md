@@ -209,3 +209,21 @@ distribution which was set to “gaussian”, which is a bell shaped curve. We t
 by setting the number of trees (the number of gradient boosting iteration) to 1000. The cv.folds
 were set to 20, shrinkage to 0.01, n.minobsinnide to 10 (the minimum number of observations in
 the trees terminal nodes) and the number of trees (n.trees) to 1000.
+
+**Limitations**
+
+Some limitations that we encountered in our study was the absence of data altogether for Twitch
+followers. Some games were not present on the Twitch website, and therefore, a couple of games
+did not have data on the current number of Twitch followers. Some video games also did not
+release the data for all of the set metrics we were looking for.
+
+
+**Conclusions**
+
+After running all models on the data set to predict the number of downloads, the resultant
+performance figures do not favor the models, as their RMSE and MAE values seem to not
+convince them that their performance was optimal. Although comparatively GBM alone did a
+good job with its highest R2 value among all the models, but with the results of the model, we
+will not choose to go with any of the above supervised learning models to predict PC game
+downloads w.r.t data collected from Steam, Twitter, Youtube, and Twitch. However
+comparatively, the gradient boosting machine has somewhat performed better than others.
