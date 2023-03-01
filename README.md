@@ -227,3 +227,17 @@ good job with its highest R2 value among all the models, but with the results of
 will not choose to go with any of the above supervised learning models to predict PC game
 downloads w.r.t data collected from Steam, Twitter, Youtube, and Twitch. However
 comparatively, the gradient boosting machine has somewhat performed better than others.
+
+
+**Bibliography**
+1. Alpert, Frank (2007), “The Entertainment Software Industry: Suddenly Huge, Little
+Understood,” Asia-Pacific Journal of Marketing and Logistics, Vol. 19, No. 1, 87-100.
+Retrieved from https://core.ac.uk/download/pdf/15035023.pdf.
+2. Z. Xu, Analysis of economic benefits and development trend of China's game live
+streaming market. Consumer Guide, 2019, no. 5, pp 126-127.
+3. HERNANDEZ, Danny. Game Creator Success on Twitch: Hard Numbers [online]. 2016
+[visited on 2017-03-21]. Available from: https://blog. twitch.tv/https-blog-twitch-tvgame-creator-success-on- twitch-hard-numbers-688154815817
+4. Clement, J. “Topic: Video Game Industry.” Statista, 19 Nov. 2021,
+https://www.statista.com/topics/868/video-games/.
+5. Alice Yufa" Predicting Global Video-Game Sales" Quest Journals Journal of Research in
+Business and Management, vol. 07, no. 03, 2019, pp 60-64
