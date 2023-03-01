@@ -93,7 +93,10 @@ while they tend to believe users who have more professional credibility. Concern
 collected for our study, the results of this study supports the pattern seen by our dataset which
 suggests a possible positive correlation between followers of certain video game “influencers”
 and number of positive reviews of a particular game.
-Research Method
+
+https://user-images.githubusercontent.com/82136474/222225079-1e29000c-16fd-4b87-a1b3-c7a628b36bb0.mp4
+
+**Research Method**
 
 **3. Data Acquisition**
 
