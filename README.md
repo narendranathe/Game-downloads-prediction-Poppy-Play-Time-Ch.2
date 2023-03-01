@@ -5,6 +5,8 @@ This project explored the subject of prediction of a video game’s success. A p
 
 This is a game made available on steam after several delays in the release date. Sentiments of the users are captured from steam, twitter page, twitch creators, youtube etc. Data collection has been performed from all the sources 
 
+*If you want to check out code and the result go to Rstudio-Code.pdf*
+
 Table of Contents
 1. Introduction
 2. Literature review
