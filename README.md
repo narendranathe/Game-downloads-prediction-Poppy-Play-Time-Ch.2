@@ -60,17 +60,20 @@ Twitch, a massive video service that became a popular streaming platform for gam
 real-time gameplay, it has also proven to be a source of large appeal reaching millions with
 influencers of their own. This platform allows users to share their gameplay with anyone in the
 world in real time.
+
 Twitch conducted a study between the connection of Twitch views to sales on Steam, another
 similar popular website that collects video game data, claimed that up to 25% of sales on Steam
 came from users who watched a game on Twitch and subsequently bought it within the next 2
 hours. Furthermore, players who watched a given game within the same week the user had
 played it showed a 5% increase in retention. However, there are flaws within this study based on
 the small sample size of only 0.53% of viewers that connected their Twitch account to Steam. [4]
+
 For future research, more studies regarding the connection between Twitch view to Steam
 accounts should be delved deeper into with a much higher sample size as well as more current
 data. Another weakness in this study was the aspect of direct bias and dubious intent, as Twitch
 conducted the study about their own company and most likely omitted unfavorable data that
 reflected poorly about their company’s power of influence.
+
 One study published in April 2019 examined the efficacy of predicting future video-game sales
 based on past sales using data from about 8,000 different games across a variety of platforms.
 Data was collected from the website Kaggle from the specific dataset entitled “Video Game
@@ -86,6 +89,7 @@ sales variable used as the dependent/ output variable was global sales. Furtherm
 and critic count, user score and user count and the qualitative variable of user rating was
 collected. The major hypothesis was that users buy games based on their overall aspects and
 features, not genre classification. [5]
+
 This study helps point towards the potential positive connection between global sales and higher
 critic scores and the negative connection between global sales and higher user scores. This data
 suggests that potential game purchasers and reviewers are skeptical of the ratings of other users
@@ -110,8 +114,10 @@ looking at the average number of players. Finally, we tracked whether or not eac
 playable on Mac OS, Windows OS or both. For each video game, data was collected via Steam
 with the name of the game, price, developer, release date, number of all reviews, recent reviews,
 positive and negative reviews of the individual variables.
+
 We collected data from a popular Youtube video for each game by picking the video review
 created by popular Youtube gamers or “influencers”.
+
 The number of downloads and purchases on the website Steam was estimated through using the
 New Boxleiter number, since the data of how many copies of games that are sold on steam is not
 public. However, by using the public data for the number of player reviews on Steam, one can
@@ -123,13 +129,17 @@ review.
 First global options were set to apply to every chunk in the file. The following linear models
 were used: logistic regression, gradient boosting machine and one for data visualization and data
 cleansing.
+
 The following libraries were imported: caret, ggplot2, tidyr, dplyr and MLmetrics.
 To begin, first we cleaned the data by selecting the data frame and converted all character values
 to be numeric for each category.
+
 Then we displayed the internal structure of the data using str(data). We manipulated the
 categorical variables set with factor levels.
+
 To deal with any missing values from our data set, labeled “N/A”, we used the parameter “na
 RM” to remove the missing values and check NA values which let us know if the return was true
 or false. After it was run, there were no missing values in the data set found.
+
 To create the response variable, we used mutate to add “downloads,” which is a product of the
 difference of days between the release date of the game and April 30, 2022 as well as “all_rev”.
