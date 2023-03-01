@@ -27,6 +27,7 @@ Video content creation by civilians and private users have now created an emerge
 The emergence of video games started in the 1970s. Now, more than 50 years later, an entire generation of first generation gamers have grown up and have significant consumer market power. It was found that within gaming habits of internet users 18 years or older within the U.S.,
 76% of those sampled played video games and almost 18% spent more than 6 hours per week
 playing video games.** [1]**
+
 Within the video game industry, it has grown and changed over the decades, starting with arcade
 games and console games to now the most popular market of PC and mobile games. These
 massive gaming companies are continuing to strive to publish and produce financially successful
@@ -44,10 +45,12 @@ game industry has created lasting changes within the market. These massive compa
 made acquisitions to follow the wave of what is now seen as an unstoppable market of big tech. 
 Microsoft acquired Activision Blizzard, another gaming company for $68 billion on January 18,
 2022 while Amazon acquired Twitch for $970 billion in August 2014. [3]
+
 The nature of gaming itself has changed how users purchase video games through subscription
 options that allow users to access an entire library of games at their disposal, of which new
 games are constantly added into. This has opened doors for gamers and consumers to reach a
 much wider net within the market.
+
 Youtube is a popular and widely used service among gamers to consume gaming content.
 Producers of gaming content also provide a massive following and reach a wide audience
 through their content of reviews, first impressions and gameplays. Many content producers reach
