@@ -115,7 +115,7 @@ playable on Mac OS, Windows OS or both. For each video game, data was collected 
 with the name of the game, price, developer, release date, number of all reviews, recent reviews,
 positive and negative reviews of the individual variables.
 
-We collected data from a popular Youtube video for each game by picking the video review
+I collected data from a popular Youtube video for each game by picking the video review
 created by popular Youtube gamers or “influencers”.
 
 The number of downloads and purchases on the website Steam was estimated through using the
@@ -143,3 +143,69 @@ or false. After it was run, there were no missing values in the data set found.
 
 To create the response variable, we used mutate to add “downloads,” which is a product of the
 difference of days between the release date of the game and April 30, 2022 as well as “all_rev”.
+
+**5. Data visualization**
+
+To visualize the data, we first used ggplot() to create a scatter plot with a regression line of
+Twitter followers versus Twitch followers by the number of days since the game was released.
+The plot revealed that there seems to be a positive correlation between their values.
+Data description
+
+To track whether or not the game could be played on Mac or Microsoft windows or both, the
+variables 1 and 0 were used. If a game could be played on one of these platforms or both, it was
+labeled with a 1. If not, it was marked with a 0. Data was collected from twitter by extracting
+from a popular tweet about the game that included a video within it. The number of twitter views
+of that video was collected, labeled under the variable “Twt_view” while the number of
+followers of the author of that particular tweet was collected.
+
+**Experiments**
+
+**Correlation plot**
+
+A correlation plot was created to extract and transform the objects. The function “corr() was used
+to calculate the correlation. The results revealed that variables all_rev, rec_rev to downloads and
+twt_view to diff_days are highly correlated. Other variables like ytc_view to ytc_likes to
+ytc_com, twt_view to diff_days and twi_flw to ytc_view have a strong correlation.
+
+**Grouped boxplot**
+
+A grouped boxplot was run to visualize the data categories of Youtube channel, subscriptions,
+likes, and comments. First, the reshape package was called. The data frame was melted to create
+a boxplot. Then the title of the graph as well as x and y axises were labeled and the title was
+added. We found that the boxplots ytc_view, ytc_likes and ytc_com have more outliers as
+compared to ytc_subs which have just 1 outlier. The data in ytc_subs and ytc_likes seem to have
+a similar range of values and median. The data in ytc_view and ytc_com look the same with a
+minor difference in ytc_view.
+
+I partitioned the data into training and testing sets using randomized numbers via set.seed().
+I randomly split the dataset into a train (80%) and a test set (20%). Then we set the rows for
+both the train and test sets and created a table. The table displays that out of 80 observations, the
+train-test-split of 80-20 assigned 64 observations for the training set and 16 observations for the
+test set.
+
+**Model 1: Multiple linear regression**
+
+The first multiple linear regression model created included selected predictors of all reviews,
+recent reviews, youtube channel subscribers, and twitch followers. The results concluded that the
+predictors are statistically significant.
+
+The second multiple linear regression model concluded that the predictors of youtube comments,
+twitch followers and recent reviews are statistically significant as well.
+The third multiple linear regression model with all predictors revealed that the time between the
+release date and April 30, 2022 and the number of twitch followers are statistically significant.
+
+**Model 2: Logistic regression**
+
+glm() was used to plot the logistic regression because our data has a non-normal distribution.
+The predicted probability was calculated, then the probability of downloads was calculated using
+the “predict()” function. Predict() was used to find the first 10 values of test_probs. The function
+logit() was used to model a logistic regression. Then we did a logit model prediction to calculate
+the predicted downloads. The results were plotted.
+
+**Model 3: Gradient Boosting Machine**
+
+The gbm() library was used to create a gbm model. Within this model, the data had a normal
+distribution which was set to “gaussian”, which is a bell shaped curve. We tuned the parameters
+by setting the number of trees (the number of gradient boosting iteration) to 1000. The cv.folds
+were set to 20, shrinkage to 0.01, n.minobsinnide to 10 (the minimum number of observations in
+the trees terminal nodes) and the number of trees (n.trees) to 1000.
