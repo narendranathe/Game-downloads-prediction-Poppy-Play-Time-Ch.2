@@ -16,6 +16,7 @@ Table of Contents
 8. Bibliography
 
 **1. Introduction**
+
 In today’s world, the video game industry is one of the largest industries in the world. In the year 2020, the PC gaming market reached a worldwide estimation of almost 37 billion U.S. dollars. Within the United States alone in the same year, the video game market reached an estimated 77billion dollars. By March 2022, the hardware revenue of the United States video game industry reached 515 million dollars, while the value of the video game market reached a total estimate of
 85.86 billion dollars. **[1]**
 
