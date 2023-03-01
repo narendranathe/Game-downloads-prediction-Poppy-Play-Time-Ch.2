@@ -5,7 +5,7 @@ This project explored the subject of prediction of a video game’s success. A p
 
 This is a game made available on steam after several delays in the release date. Sentiments of the users are captured from steam, twitter page, twitch creators, youtube etc. Data collection has been performed from all the sources 
 
-*If you want to check out code and the result go to [Rstudio-Code.pdf](https://github.com/narendranathe/Game-downloads-prediction-Poppy-Play-Time-Ch.2/blob/6c49d6cda67fd6eff8ff9f6c75785bfa6c62d7b1/Rstudio-Code.pdf)*
+*If you want to check out code and the result go to [Rstudio-Code.Rmd](https://github.com/narendranathe/Game-downloads-prediction-Poppy-Play-Time-Ch.2/blob/2ab123cf9a08cdb99cf27c898cefcfe2f2e76171/Rstudio%20Code.Rmd)*
 
 Table of Contents
 1. Introduction
