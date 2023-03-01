@@ -1,4 +1,5 @@
 # Game Downloads prediction for Poppy play time
+<img width="1232" alt="8c1f9928-72a3-41dd-b1d7-e808332256c4" src="https://user-images.githubusercontent.com/82136474/222216985-3eda0bfc-08f5-4c7c-977c-6110155f3b40.png">
 
 This project explored the subject of prediction of a video game’s success. A preliminary data modeling was done before collecting and cleaning data and forming a model to test the hypothesis using R. The endogenous and exogenous variables were found and identified. Data was collected, cleaned and formatted for processing. Training and testing data sets were formed and linear cases were built. Lastly, a regression diagnostics was formed through linear models, a statistical estimation and data visualization.
 
