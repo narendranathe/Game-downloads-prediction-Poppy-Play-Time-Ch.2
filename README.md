@@ -106,10 +106,10 @@ https://user-images.githubusercontent.com/82136474/222225079-1e29000c-16fd-4b87-
 
 **3. Data Acquisition**
 
-Numerical statistical data was collected from the websites Steam, Twitch and Youtube. First, we
+Numerical statistical data was collected from the websites Steam, Twitch and Youtube. First, I
 decided to collect data with games based on the 9 different genres within the Steam website:
 action, adventure horror, sports, stimulation, RPG, Arcade, Sandbox and puzzles. From Steam,
-we collected and analyzed the price of different games, the developer, the release date, all
+I collected and analyzed the price of different games, the developer, the release date, all
 reviews until the release date, the number of recent reviews, all positive reviews, all negative
 reviews. From Twitch, we collected metrics on the average gain or loss on overall players by
 looking at the average number of players. Finally, we tracked whether or not each game was
